@@ -5,6 +5,11 @@ app that holds MacBook battery charge within a custom lower/upper range (e.g.
 40–80%), so the Mac can stay plugged in permanently as an always-on machine
 without sitting at 100%. See `README.md` for user-facing docs.
 
+**Repo:** public at github.com/aditya1c/ChargeGuard, same convention as
+WhisperType — repo-local git identity (`aditya1c <aditya1c@users.noreply.github.com>`,
+no real name/email in history), `main` branch, `.xcodeproj` gitignored since
+it's generated.
+
 ## Build & run
 
 ```bash
@@ -121,6 +126,17 @@ setup if you ever zip/share a build.
   into its own alpha-masked bitmap first (lockFocus, draw, fill `.sourceAtop`
   white), then composite *that* bitmap with `.destinationOut`.
 - **Bundle id** is `com.chargeguard.app`; also the UserDefaults domain.
+- **The menu bar charging icon is `bolt.batteryblock.fill` (a car-battery-style
+  glyph), deliberately** — not `battery.100percent.bolt` (the traditional
+  outline+bolt shape macOS itself uses), which was tried and explicitly
+  rejected in favor of the car-battery look. Don't "fix" this back without
+  asking. It's gated on `status.charging.pluggedIn`, not
+  `status.battery.state == "charging"` — `batt` reports `"notCharging"` once
+  the battery tops off/holds even while still plugged in (the common state
+  for an always-on setup), and the icon should reflect "connected to power"
+  throughout that, not just the brief window current is actively flowing.
+  Tint uses SwiftUI's `Color.primary`, which auto-resolves black/white to
+  match a light/dark menu bar — no extra light/dark handling needed.
 
 ## Conventions
 
