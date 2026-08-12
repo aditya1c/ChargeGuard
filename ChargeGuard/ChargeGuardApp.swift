@@ -42,7 +42,11 @@ struct MenuBarIcon: View {
 
     private var symbolName: String {
         guard let status else { return "exclamationmark.triangle" }
-        if status.battery.state == "charging" { return "bolt.batteryblock.fill" }
+        // Gate on "plugged in" rather than the stricter "actively charging" state:
+        // with the Mac left plugged in permanently, it spends most of its time
+        // topped off/holding (batt reports "notCharging" while still plugged in),
+        // and the icon should reflect "connected to power" throughout that.
+        if status.charging.pluggedIn { return "bolt.batteryblock.fill" }
         switch status.battery.currentChargePercent {
         case ..<10: return "battery.0percent"
         case ..<35: return "battery.25percent"
