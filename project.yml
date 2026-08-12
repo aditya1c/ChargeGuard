@@ -1,0 +1,26 @@
+name: ChargeGuard
+options:
+  bundleIdPrefix: com.chargeguard
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.chargeguard.app
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: NO
+    INFOPLIST_FILE: ChargeGuard/Info.plist
+    SWIFT_VERSION: "5.0"
+    DEAD_CODE_STRIPPING: YES
+    # Local personal-use dev: ad-hoc signing, no Apple Developer team required.
+    # Hardened runtime / notarization only matter for distribution (out of scope).
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_HARDENED_RUNTIME: NO
+targets:
+  ChargeGuard:
+    type: application
+    platform: macOS
+    sources:
+      - ChargeGuard
