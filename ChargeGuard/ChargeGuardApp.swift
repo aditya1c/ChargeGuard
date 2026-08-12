@@ -42,10 +42,7 @@ struct MenuBarIcon: View {
 
     private var symbolName: String {
         guard let status else { return "exclamationmark.triangle" }
-        // "bolt.batteryblock.fill" is a different glyph family (looks like a car
-        // battery); "battery.100percent.bolt" is the traditional battery outline
-        // with a charging bolt, matching macOS's own menu bar battery icon.
-        if status.battery.state == "charging" { return "battery.100percent.bolt" }
+        if status.battery.state == "charging" { return "bolt.batteryblock.fill" }
         switch status.battery.currentChargePercent {
         case ..<10: return "battery.0percent"
         case ..<35: return "battery.25percent"
